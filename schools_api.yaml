@@ -1,45 +1,45 @@
 openapi: 3.0.0
 info:
-  title: API Library
+  title: API School
   version: 1.0.0
-  description: API to manage a library's books and authors
+  description: API to manage a school student
 paths:
-  /books:
+  /groups:
     get:
-      summary: Retrieve book list
+      summary: Retrieve group list
       parameters:
-        - name: bookName
+        - name: groupName
           in: query
-          description: Book name
+          description: Group name
           schema:
             type: string
-        - name: releaseDate
+        - name: groupYear
           in: query
-          description: Publication date range (ISO 8601 format)
+          description: Publication year range (ISO 8601 format)
           schema:
             type: string
             format: date-time
       responses:
         '200':
-          description: List of books
+          description: GroupName
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: '#/components/schemas/group'
     post:
-      summary: create a new book
+      summary: create a new Group
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Book'
+              $ref: '#/components/schemas/group'
       responses:
         '201':
-          description: Book successfully created
+          description: Group successfully created
     put:
-      summary: update a book
+      summary: update a group
       parameters:
         - name: id
           in: path
@@ -51,99 +51,98 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Book'
+              $ref: '#/components/schemas/group'
       responses:
         '200':
-          description: Book successfully updated
+          description: Group successfully updated
     delete:
-      summary: delete a book
+      summary: delete a group
       parameters:
         - name: id
           in: path
           required: true
-          description: book id
+          description: group id
           schema:
             type: integer
       responses:
         '204':
-          description: Book successfully deleted
-  /authors:
+          description: Group successfully deleted
+  /students:
     get:
-      summary: Retrieve the list of authors
+      summary: Retrieve the list of students
       parameters:
-        - name: authorName
+        - name: studentName
           in: query
-          description: Name of author
+          description: Name of student
           schema:
             type: string
       responses:
         '200':
-          description: list of authors
+          description: list of students
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Author'
+                  $ref: '#/components/schemas/student'
     post:
-      summary: Create a new author
+      summary: Create a new student
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Author'
+              $ref: '#/components/schemas/student'
       responses:
         '201':
-          description: Author successfully created
+          description: Student successfully created
     put:
-      summary: Update an author
+      summary: Update an student
       parameters:
         - name: id
           in: path
           required: true
-          description: Author ID
+          description: student ID
           schema:
             type: integer
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Author'
+              $ref: '#/components/schemas/student'
       responses:
         '200':
-          description: Author successfully updated
+          description: student successfully updated
     delete:
-      summary: Remove an author
+      summary: Remove an student
       parameters:
         - name: id
           in: path
           required: true
-          description: Author ID
+          description: Student ID
           schema:
             type: integer
       responses:
         '204':
-          description: Author successfully removed 
+          description: Student successfully removed 
 components:
   schemas:
-    Book:
+    Group:
       type: object
       properties:
         id:
           type: integer
-        bookName:
+        groupName:
           type: string
-        author:
+        student:
           type: string
-        pageNumbers:
+        promotion:
+          type: string
+        studentNb:
           type: integer
-        topic:
-          type: string
-          enum: [ROMANCE, COMEDY]
-        releaseDate:
+        groupYear:
           type: string
           format: date-time 1 
-    Author:
+    Student:
       type: object
       properties:
         id:
@@ -153,3 +152,10 @@ components:
         sexe:
           type: string
           enum: [M, F]
+        birthdate:
+          type: string
+          format: date-time 1 
+        reference:
+          type: integer
+        group:
+          type: string

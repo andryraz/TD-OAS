@@ -2,7 +2,9 @@ openapi: 3.0.0
 info:
   title: API School
   version: 1.0.0
-  description: API to manage a school student
+  description: API to manage a student school
+servers:
+  - url: http://localhost:8080
 paths:
   /groups:
     get:
@@ -15,10 +17,9 @@ paths:
             type: string
         - name: groupYear
           in: query
-          description: Publication year range (ISO 8601 format)
+          description: Publication year range (format: yyyy-yyyy)
           schema:
             type: string
-            format: date-time
       responses:
         '200':
           description: GroupName
@@ -133,15 +134,17 @@ components:
           type: integer
         groupName:
           type: string
-        student:
-          type: string
         promotion:
           type: string
+          enum: [G, H, J, K]
         studentNb:
           type: integer
         groupYear:
           type: string
-          format: date-time 1 
+        students:
+          type: array
+          items:
+            $ref: '#/components/schemas/Student'
     Student:
       type: object
       properties:
@@ -154,7 +157,7 @@ components:
           enum: [M, F]
         birthdate:
           type: string
-          format: date-time 1 
+          format: date
         reference:
           type: integer
         group:

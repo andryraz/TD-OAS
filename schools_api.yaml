@@ -19,9 +19,10 @@ paths:
             type: string
         - name: groupYear
           in: query
-          description: Publication year range (format: yyyy-yyyy)
+          description: Publication year range 
           schema:
             type: string
+            format: yyyy-yyyy
       responses:
         '200':
           description: GroupName
@@ -41,6 +42,7 @@ paths:
       responses:
         '201':
           description: Group successfully created
+  /groups/{groupId}:
     put:
       summary: update a group
       parameters:
